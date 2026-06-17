@@ -19,3 +19,10 @@ class FrozenLakeEnv:
         self.done = False
         self.row = self.current_state // 8
         self.col = self.current_state % 8
+
+    def reset(self):
+        self.current_state = 0
+        self.done = False
+        self.row = 0
+        self.col = 0
+        return self.current_state
