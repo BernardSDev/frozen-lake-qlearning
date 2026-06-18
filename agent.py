@@ -31,6 +31,10 @@ class QLearningAgent:
             target = reward + self.gamma * max(self.q_table[next_state])
 
         self.q_table[state][action] = (current + self.alpha * (target - current))
+
+    # See [5]
+    def decay_epsilon(self):
+        self.epsilon = max(self.epsilon_min, self.epsilon * self.epsilon_decay)
         
         
 # ─────────────────────────────────────────────
@@ -57,4 +61,8 @@ class QLearningAgent:
 #      Q(s,a) ← Q(s,a) + α[r + γ max Q(s',a') − Q(s,a)]
 #      If episode is done, target is just the reward (no future state).
 #      Otherwise target includes discounted future reward.
+# 
+# [5]  Decay epsilon after each episode.
+#      Multiplies epsilon by decay rate to gradually shift from
+#      exploration to exploitation. Never goes below epsilon_min.
 # ─────────────────────────────────────────────
