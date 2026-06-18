@@ -22,9 +22,19 @@ class QLearningAgent:
         else:
             return np.argmax(self.q_table[state])
         
+    # See [4]    
+    def update(self, state, action, reward, next_state, done):
+        current = self.q_table[state][action]
+        if done:
+            target = reward
+        else:
+            target = reward + self.gamma * max(self.q_table[next_state])
 
-
-
+        self.q_table[state][action] = (
+            current + self.alpha * (target - current)
+        )
+        
+        
 # ─────────────────────────────────────────────
 # REFERENCE NOTES
 # ─────────────────────────────────────────────
@@ -44,4 +54,9 @@ class QLearningAgent:
 #      With probability epsilon: explore by picking a random action (0-3)
 #      Otherwise: exploit by picking the action with the highest Q-value
 #      for the current state. Returns the chosen action as an integer.
+# 
+# [4]  Update the Q-table using the Q-Learning equation.
+#      Q(s,a) ← Q(s,a) + α[r + γ max Q(s',a') − Q(s,a)]
+#      If episode is done, target is just the reward (no future state).
+#      Otherwise target includes discounted future reward.
 # ─────────────────────────────────────────────
