@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 class QLearningAgent:
     # See [1]
@@ -13,6 +14,15 @@ class QLearningAgent:
         self.epsilon = epsilon
         self.epsilon_decay = epsilon_decay
         self.epsilon_min = epsilon_min
+
+    def choose_action(self, state):
+        # See [3]
+        if random.random() < self.epsilon:
+            return random.randint(0, 3)
+        else:
+            return np.argmax(self.q_table[state])
+        
+
 
 
 # ─────────────────────────────────────────────
@@ -29,4 +39,9 @@ class QLearningAgent:
 #      epsilon       — exploration rate: probability of taking a random action
 #      epsilon_decay — multiplier applied to epsilon after each episode
 #      epsilon_min   — minimum value epsilon can reach
+# 
+# [3]  Choose an action using epsilon-greedy strategy.
+#      With probability epsilon: explore by picking a random action (0-3)
+#      Otherwise: exploit by picking the action with the highest Q-value
+#      for the current state. Returns the chosen action as an integer.
 # ─────────────────────────────────────────────
