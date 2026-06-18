@@ -59,3 +59,12 @@ class FrozenLakeEnv:
 
         return self.current_state, reward, self.done
     
+    def render(self):
+        for row in range(self.GRID_SIZE):
+            for col in range(self.GRID_SIZE):
+                if row == self.row and col == self.col:
+                    print("A", end=" ")
+                else:
+                    print(self.MAP[row][col], end=" ")
+            print()
+    
