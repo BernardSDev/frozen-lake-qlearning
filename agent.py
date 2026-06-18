@@ -19,8 +19,10 @@ class QLearningAgent:
         # See [3]
         if random.random() < self.epsilon:
             return random.randint(0, 3)
-        else:
-            return np.argmax(self.q_table[state])
+        q_values = self.q_table[state]
+        max_q = np.max(q_values)
+        max_actions = np.where(q_values == max_q)[0]
+        return int(random.choice(max_actions))
         
     # See [4]    
     def update(self, state, action, reward, next_state, done):
@@ -55,7 +57,12 @@ class QLearningAgent:
 # [3]  Choose an action using epsilon-greedy strategy.
 #      With probability epsilon: explore by picking a random action (0-3)
 #      Otherwise: exploit by picking the action with the highest Q-value
-#      for the current state. Returns the chosen action as an integer.
+#      for the current state.
+#      Ties are broken randomly — when multiple actions share the same
+#      Q-value (e.g. all zeros early in training), one is chosen at random
+#      instead of always defaulting to index 0 (Left). This prevents the
+#      agent from getting stuck always moving in the same direction.
+#      Returns the chosen action as an integer.
 # 
 # [4]  Update the Q-table using the Q-Learning equation.
 #      Q(s,a) ← Q(s,a) + α[r + γ max Q(s',a') − Q(s,a)]
