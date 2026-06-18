@@ -30,9 +30,7 @@ class QLearningAgent:
         else:
             target = reward + self.gamma * max(self.q_table[next_state])
 
-        self.q_table[state][action] = (
-            current + self.alpha * (target - current)
-        )
+        self.q_table[state][action] = (current + self.alpha * (target - current))
         
         
 # ─────────────────────────────────────────────
