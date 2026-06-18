@@ -34,3 +34,28 @@ class FrozenLakeEnv:
         cell = self.MAP[self.row][self.col]
         return cell in ("H", "G")
     
+    def step(self, action):
+        new_row = self.row
+        new_col = self.col
+
+        if action == 0:
+            new_col -= 1
+        elif action == 1:
+            new_row += 1
+        elif action == 2:
+            new_col += 1
+        elif action == 3:
+            new_row -= 1
+
+        new_row = max(0, min(7, new_row))
+        new_col = max(0, min(7, new_col))
+
+        self.row = new_row
+        self.col = new_col
+        self.current_state = (self.row * 8) + self.col
+        cell = self.MAP[self.row][self.col]
+        reward = 1 if cell in ("G") else 0 
+        self.done = self.is_terminal()
+
+        return self.current_state, reward, self.done
+    
