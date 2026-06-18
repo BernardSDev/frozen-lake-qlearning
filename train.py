@@ -73,6 +73,9 @@ for row in range(8):
             print(action_symbols[best_action], end=" ")
     print()
 
+np.save("results/q_table.npy", agent.q_table)
+print("Q-table saved to results/q_table.npy")
+
 
 # ─────────────────────────────────────────────
 # REFERENCE NOTES
