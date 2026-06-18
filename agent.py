@@ -2,17 +2,17 @@ import numpy as np
 
 class QLearningAgent:
     # See [1]
-    NUM_STATES  = 64
+    NUM_STATES = 64
     NUM_ACTIONS = 4
 
     def __init__(self, alpha, gamma, epsilon, epsilon_decay, epsilon_min):
         # See [2]
-        self.q_table      = np.zeros((self.NUM_STATES, self.NUM_ACTIONS))
-        self.alpha         = alpha
-        self.gamma         = gamma
-        self.epsilon       = epsilon
+        self.q_table = np.zeros((self.NUM_STATES, self.NUM_ACTIONS))
+        self.alpha = alpha
+        self.gamma = gamma
+        self.epsilon = epsilon
         self.epsilon_decay = epsilon_decay
-        self.epsilon_min   = epsilon_min
+        self.epsilon_min = epsilon_min
 
 
 # ─────────────────────────────────────────────

@@ -12,15 +12,15 @@ class FrozenLakeEnv:
         "FFFHFFFG"
     ]
 
-    GRID_SIZE   = 8
-    NUM_STATES  = 64
+    GRID_SIZE = 8
+    NUM_STATES = 64
     NUM_ACTIONS = 4
 
     # Action constants — See [2]
-    LEFT  = 0
-    DOWN  = 1
+    LEFT = 0
+    DOWN = 1
     RIGHT = 2
-    UP    = 3
+    UP = 3
 
     def __init__(self):
         # See [3]
