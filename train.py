@@ -1,3 +1,4 @@
+import numpy as np
 from environment import FrozenLakeEnv
 from agent import QLearningAgent
 
@@ -48,7 +49,29 @@ for episode in range(EPISODES):
         success_rate = sum(successes[-1000:]) / 1000 * 100
         print(f"Episode {episode + 1}/{EPISODES} | "
               f"Success Rate: {success_rate:.1f}% | "
-              f"Epsilon: {agent.epsilon:.3f}")
+              f"Epsilon: {agent.epsilon:.3f}")  
+            
+# See [8]
+print("\n─── Learned Policy ───")
+
+action_symbols = {
+    0: "←", 
+    1: "↓", 
+    2: "→", 
+    3: "↑"
+}
+
+for row in range(8):
+    for col in range(8):
+        state = row * 8 + col
+        cell = env.MAP[row][col]
+
+        if cell in ("H", "G"):
+            print(cell, end=" ")
+        else:
+            best_action = np.argmax(agent.q_table[state])
+            print(action_symbols[best_action], end=" ")
+    print()
 
 
 # ─────────────────────────────────────────────
@@ -81,4 +104,8 @@ for episode in range(EPISODES):
 #
 # [7]  Print a progress summary every 1000 episodes.
 #      Shows success rate over the last 1000 episodes and current epsilon.
+# 
+# [8]  Policy extraction — displays the best action for every non-terminal
+#      state as a directional arrow. Holes and Goal show their cell letter.
+#      Best action = argmax of Q-table row for that state.
 # ─────────────────────────────────────────────
