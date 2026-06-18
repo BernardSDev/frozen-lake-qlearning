@@ -26,3 +26,11 @@ class FrozenLakeEnv:
         self.row = 0
         self.col = 0
         return self.current_state
+    
+    def get_state(self):
+        return self.current_state
+    
+    def is_terminal(self):
+        cell = self.MAP[self.row][self.col]
+        return cell in ("H", "G")
+    
